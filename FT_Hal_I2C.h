@@ -33,10 +33,6 @@ Revision History:
 */
 
 /* This file contains interface to I2C */
-#ifndef FT_HAL_I2C_H
-#define FT_HAL_I2C_H
-
-#ifdef  FT_ARDUINO_ATMEGA328P_I2C
 #define FT_ATMEGA328P_RTC_I2C_ADDRESS     (0x6F)//7 bit i2c address and last bit is for read/write information
 #define FT_ATMEGA328P_I2C_BURST_SIZE  (28)
 #define FT_ATMEGA328P_RTC_MFP  (2)
@@ -46,10 +42,6 @@ Revision History:
 ft_int16_t hal_rtc_i2c_init();
 ft_int16_t hal_rtc_i2c_read(ft_uint8_t addr, ft_uint8_t *buffer,ft_uint16_t length);
 ft_int16_t hal_rtc_i2c_write(ft_uint8_t addr, ft_uint8_t *buffer,ft_uint16_t length);
-
-
-          
-#endif /* FT_HAL_I2C_H */
 
 
 /* Nothing beyond this */

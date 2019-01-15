@@ -35,16 +35,6 @@ Revision History:
 /* Standard includes */
 #include "FT_Platform.h"
 #include "Wire.h"
-#if 0
-#include "FT_Gpu.h"
-#ifdef ARDUINO_PLATFORM
-#include <stdio.h>
-#include <Arduino.h>
-#include <SPI.h>
-#include <avr/pgmspace.h>
-#include <Wire.h>
-#endif
-#endif
 #include "FT_Hal_I2C.h"
 
 /* mainly assosiated to rtc - need to make it generic */

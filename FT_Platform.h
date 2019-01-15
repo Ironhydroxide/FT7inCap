@@ -33,64 +33,28 @@ Revision History:
 1.1 - date 2015.04.15 - Introduction of module specific configurations
 */
 
-#ifndef _FT_PLATFORM_H_
-#define _FT_PLATFORM_H_
-
-#define ARDUINO_PLATFORM
-
-
 		#define DISPLAY_RESOLUTION_WQVGA				(1)
-		#define FT_801_ENABLE							(1)
-		#define ENABLE_SPI_SINGLE						(1)
 		#define FT800_INT 								(3)
 		#define FT800_PD_N 								(4)
 		#define FT_SDCARD_CS						    (5)       
 		#define FT800_CS 								(10)
 		#define FT_ARDUINO_PRO_SPI_CS 					(10)
-		#define ARDUINO_PLATFORM_COCMD_BURST
 
-	#endif
 
 /* Custom configuration set by the user */
 	
-		//#define DISPLAY_RESOLUTION_QVGA						(1)
-		//#define DISPLAY_RESOLUTION_WQVGA					(1)
-		#define DISPLAY_RESOLUTION_WVGA						(1)
-		//#define DISPLAY_RESOLUTION_HVGA_PORTRAIT			(1)
 
-		/* Chip configuration specific macros */
-		//#define FT_800_ENABLE							(1)
-		//#define FT_801_ENABLE							(1)
-		//#define FT_810_ENABLE							(1)
-		//#define FT_811_ENABLE							(1)
-		//#define FT_812_ENABLE							(1)
-		#define FT_813_ENABLE							(1)
 
 		/* SPI specific macros - compile time switches for SPI single, dial and quad use cases */
-		#define ENABLE_SPI_SINGLE						(1)
-		//#define ENABLE_SPI_DUAL							(1)
-		//#define ENABLE_SPI_QUAD							(1)
 
 		#define FT800_CS                 (10)
 		#define FT800_INT                 (9)
 		#define FT800_PD_N                (8)
 		#define FT_SDCARD_CS                (5)  
 
-		/* Display driver configurations - mainly for ME900EV1 modules */
-		//#define ENABLE_ILI9488_HVGA_PORTRAIT			(1)
 
 		/* Threshold for resistance */
 		#define RESISTANCE_THRESHOLD					(1200)
-
-
-
-	#if (defined(FT_800_ENABLE) || defined(FT_801_ENABLE))
-		#define FT_80X_ENABLE								(1)
-	#endif
-
-	#if (defined(FT_810_ENABLE) || defined(FT_811_ENABLE) || defined(FT_812_ENABLE) || defined(FT_813_ENABLE))
-		#define FT_81X_ENABLE								(1)
-	#endif
 
 /* Standard C libraries */
 #include <stdio.h>

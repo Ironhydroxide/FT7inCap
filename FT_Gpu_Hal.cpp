@@ -33,29 +33,6 @@ Revision History:
 /* API to initialize the SPI interface */
 ft_bool_t  Ft_Gpu_Hal_Init(Ft_Gpu_HalInit_t *halinit)
 {
-#ifdef FT900_PLATFOR
-
-
-
-	/* Initialize the libmpsse */
-    Init_libMPSSE();
-	SPI_GetNumChannels(&halinit->TotalChannelNum);
-	/* By default i am assuming only one mpsse cable is connected to PC and channel 0 of that mpsse cable is used for spi transactions */
-	if(halinit->TotalChannelNum > 0)
-	{
-        FT_DEVICE_LIST_INFO_NODE devList;
-		SPI_GetChannelInfo(0,&devList);
-		printf("Information on channel number %d:\n",0);
-		/* print the dev info */
-		printf(" Flags=0x%x\n",devList.Flags);
-		printf(" Type=0x%x\n",devList.Type);
-		printf(" ID=0x%x\n",devList.ID);
-		printf(" LocId=0x%x\n",devList.LocId);
-		printf(" SerialNumber=%s\n",devList.SerialNumber);
-		printf(" Description=%s\n",devList.Description);
-		printf(" ftHandle=0x%x\n",devList.ftHandle);/*is 0 unless open*/
-	}
-#endif
 	return TRUE;
 }
 ft_bool_t    Ft_Gpu_Hal_Open(Ft_Gpu_Hal_Context_t *host)
@@ -69,11 +46,6 @@ ft_bool_t    Ft_Gpu_Hal_Open(Ft_Gpu_Hal_Context_t *host)
 
     gpio_write(host->hal_config.pdn_pin_no,1);
 
-
-#endif
-#ifdef MSVC_FT800EMU
-	Ft_GpuEmu_SPII2C_begin();
-#endif
 	pinMode(host->hal_config.pdn_pin_no, OUTPUT);
 	digitalWrite(host->hal_config.pdn_pin_no, HIGH);
     pinMode(host->hal_config.spi_cs_pin_no, OUTPUT);
@@ -97,7 +69,6 @@ ft_bool_t    Ft_Gpu_Hal_Open(Ft_Gpu_Hal_Context_t *host)
 	SPI_OpenChannel(host->hal_config.channel_no,(FT_HANDLE *)&host->hal_handle);
 	status = SPI_InitChannel((FT_HANDLE)host->hal_handle,&channelConf);
 	printf("\nhandle=0x%x status=0x%x\n",host->hal_handle,status);	
-#endif
 
 	/* Initialize the context valriables */
 	host->ft_cmd_fifo_wp = host->ft_dl_buff_wp = 0;
@@ -113,12 +84,8 @@ void  Ft_Gpu_Hal_Close(Ft_Gpu_Hal_Context_t *host)
 
 	/* Close the channel*/
 	SPI_CloseChannel(host->hal_handle);
-#endif
         SPI.end();
 
-#ifdef MSVC_FT800EMU
-	Ft_GpuEmu_SPII2C_end();
-#endif
 
 }
 
@@ -127,10 +94,9 @@ void Ft_Gpu_Hal_DeInit()
 
    //Cleanup the MPSSE Lib
    Cleanup_libMPSSE();
-#endif
 
    spi_uninit(SPIM);
-#endif
+
 }
 
 /*The APIs for reading/writing transfer continuously only with small buffer system*/
@@ -150,7 +116,7 @@ void  Ft_Gpu_Hal_StartTransfer(Ft_Gpu_Hal_Context_t *host,FT_GPU_TRANSFERDIR_T r
 
 		Transfer_Array[3] = 0; //Dummy Read byte
 		SPI_Write((FT_HANDLE)host->hal_handle,Transfer_Array,sizeof(Transfer_Array),&SizeTransfered,SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE);
-#endif
+
 		digitalWrite(host->hal_config.spi_cs_pin_no, LOW);
 		SPI.transfer(addr >> 16);
 		SPI.transfer(highByte(addr));
@@ -159,9 +125,7 @@ void  Ft_Gpu_Hal_StartTransfer(Ft_Gpu_Hal_Context_t *host,FT_GPU_TRANSFERDIR_T r
 		SPI.transfer(0); //Dummy Read Byte
 
 
-#ifdef MSVC_FT800EMU
-		Ft_GpuEmu_SPII2C_StartRead(addr);
-#endif
+
 		host->status = FT_GPU_HAL_READING;
 	}else{
 	
@@ -175,15 +139,13 @@ void  Ft_Gpu_Hal_StartTransfer(Ft_Gpu_Hal_Context_t *host,FT_GPU_TRANSFERDIR_T r
 		Transfer_Array[1] = addr >> 8;
 		Transfer_Array[2] = addr;
 		SPI_Write((FT_HANDLE)host->hal_handle,Transfer_Array,3,&SizeTransfered,SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE);		
-#endif
+
 		digitalWrite(host->hal_config.spi_cs_pin_no, LOW);
 		SPI.transfer(0x80 | (addr >> 16));
 		SPI.transfer(highByte(addr));
 		SPI.transfer(lowByte(addr));
 
-#ifdef MSVC_FT800EMU
-		Ft_GpuEmu_SPII2C_StartWrite(addr);
-#endif
+
 		host->status = FT_GPU_HAL_WRITING;
 	}
 }
@@ -225,11 +187,7 @@ uint8_t    Ft_Gpu_Hal_Transfer8(Ft_Gpu_Hal_Context_t *host, uint8_t value)
 	if (SizeTransfered != sizeof(value))
 		host->status = FT_GPU_HAL_STATUS_ERROR;
         return value;
-#endif	
-
-#ifdef MSVC_FT800EMU
-	return Ft_GpuEmu_SPII2C_transfer(value);
-#endif
+	
 }
 
 
@@ -262,15 +220,7 @@ uint32_t  Ft_Gpu_Hal_Transfer32(Ft_Gpu_Hal_Context_t *host,uint32_t value)
 
 void   Ft_Gpu_Hal_EndTransfer(Ft_Gpu_Hal_Context_t *host)
 {
-
-
-
 	digitalWrite(host->hal_config.spi_cs_pin_no, HIGH);
-
-
-#ifdef MSVC_FT800EMU
-	Ft_GpuEmu_SPII2C_csHigh();
-#endif
 	host->status = FT_GPU_HAL_OPENED;
 }
 
@@ -325,16 +275,13 @@ void Ft_Gpu_HostCommand(Ft_Gpu_Hal_Context_t *host, uint8_t cmd)
   Transfer_Array[2] = 0;
 
   SPI_Write(host->hal_handle,Transfer_Array,sizeof(Transfer_Array),&SizeTransfered,SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
-#endif
+
   digitalWrite(host->hal_config.spi_cs_pin_no, LOW);
   SPI.transfer(cmd);
   SPI.transfer(0);
   SPI.transfer(0);
   digitalWrite(host->hal_config.spi_cs_pin_no, HIGH);
 
-#ifdef MSVC_FT800EMU
-  //Not implemented in FT800EMU
-#endif
 }
 
 void Ft_Gpu_ClockSelect(Ft_Gpu_Hal_Context_t *host,FT_GPU_PLL_SOURCE_T pllsource)
@@ -355,7 +302,7 @@ void Ft_Gpu_CoreReset(Ft_Gpu_Hal_Context_t *host)
 }
 
 
-#ifdef FT_81X_ENABLE
+
 //This API can only be called when PLL is stopped(SLEEP mode).  For compatibility, set frequency to the FT_GPU_12MHZ option in the FT_GPU_SETPLLSP1_T table.
 void Ft_Gpu_81X_SelectSysCLK(Ft_Gpu_Hal_Context_t *host, FT_GPU_81X_PLL_FREQ_T freq){
 		if(FT_GPU_SYSCLK_72M == freq)
@@ -391,7 +338,7 @@ void Ft_Gpu_81X_ResetActive(Ft_Gpu_Hal_Context_t *host){
 void Ft_Gpu_81X_ResetRemoval(Ft_Gpu_Hal_Context_t *host){
 	Ft_Gpu_HostCommand_Ext3(host, FT_GPU_81X_RESET_REMOVAL); 
 }
-#endif
+
 
 
 //This API sends a 3byte command to the host
@@ -406,15 +353,13 @@ void Ft_Gpu_HostCommand_Ext3(Ft_Gpu_Hal_Context_t *host,uint32_t cmd)
 	  Transfer_Array[2] = (cmd>>16) & 0xff;
 	
 	  SPI_Write(host->hal_handle,Transfer_Array,sizeof(Transfer_Array),&SizeTransfered,SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
-	#endif
+
 	  digitalWrite(host->hal_config.spi_cs_pin_no, LOW);
 	  SPI.transfer(cmd);
 	  SPI.transfer((cmd>>8) & 0xff);
 	  SPI.transfer((cmd>>16) & 0xff);
 	  digitalWrite(host->hal_config.spi_cs_pin_no, HIGH);
-	#ifdef MSVC_FT800EMU
-	  //Not implemented in FT800EMU
-	#endif
+
 }
 
 
@@ -604,7 +549,6 @@ void Ft_Gpu_Hal_Powercycle(Ft_Gpu_Hal_Context_t *host, ft_bool_t up)
 {
 	if (up)
 	{
-#ifdef MSVC_PLATFORM
             //FT_WriteGPIO(host->hal_handle, 0xBB, 0x08);//PDN set to 0 ,connect BLUE wire of MPSSE to PDN# of FT800 board
 	        FT_WriteGPIO(host->hal_handle, (1 << host->hal_config.pdn_pin_no) | 0x3B, (0<<host->hal_config.pdn_pin_no)|0x08);//PDN set to 0 ,connect BLUE wire of MPSSE to PDN# of FT800 board
 			
@@ -612,18 +556,14 @@ void Ft_Gpu_Hal_Powercycle(Ft_Gpu_Hal_Context_t *host, ft_bool_t up)
 
             //FT_WriteGPIO(host->hal_handle, 0xBB, 0x88);//PDN set to 1
 	        FT_WriteGPIO(host->hal_handle, (1 << host->hal_config.pdn_pin_no) | 0x3B, (1<<host->hal_config.pdn_pin_no)|0x08);//PDN set to 0 ,connect BLUE wire of MPSSE to PDN# of FT800 board
-            Ft_Gpu_Hal_Sleep(20);
-#endif
-#ifdef ARDUINO_PLATFORM      
+            Ft_Gpu_Hal_Sleep(20); 
             digitalWrite(host->hal_config.pdn_pin_no, LOW);
             Ft_Gpu_Hal_Sleep(20);
 
             digitalWrite(host->hal_config.pdn_pin_no, HIGH);
             Ft_Gpu_Hal_Sleep(20);
-#endif
 }else
 	{
-#ifdef MSVC_PLATFORM
 	        //FT_WriteGPIO(host->hal_handle, 0xBB, 0x88);//PDN set to 1
 	        FT_WriteGPIO(host->hal_handle, (1 << host->hal_config.pdn_pin_no) | 0x3B, (1<<host->hal_config.pdn_pin_no)|0x08);//PDN set to 0 ,connect BLUE wire of MPSSE to PDN# of FT800 board
             Ft_Gpu_Hal_Sleep(20);
@@ -632,14 +572,12 @@ void Ft_Gpu_Hal_Powercycle(Ft_Gpu_Hal_Context_t *host, ft_bool_t up)
 	        FT_WriteGPIO(host->hal_handle, (1 << host->hal_config.pdn_pin_no) | 0x3B, (0<<host->hal_config.pdn_pin_no)|0x08);//PDN set to 0 ,connect BLUE wire of MPSSE to PDN# of FT800 board
 			
             Ft_Gpu_Hal_Sleep(20);
-#endif
-#ifdef ARDUINO_PLATFORM
+
             digitalWrite(host->hal_config.pdn_pin_no, HIGH);
             Ft_Gpu_Hal_Sleep(20);
             
             digitalWrite(host->hal_config.pdn_pin_no, LOW);
             Ft_Gpu_Hal_Sleep(20);
-#endif
 
 	}
 }
@@ -737,14 +675,9 @@ int32_t Ft_Gpu_Hal_Dec2Ascii(char *pSrc,int32_t value)
 
 void Ft_Gpu_Hal_Sleep(uint32_t ms)
 {
-#if defined(MSVC_PLATFORM) || defined(MSVC_FT800EMU)
-	Sleep(ms);
-#endif
-#ifdef ARDUINO_PLATFORM
 	delay(ms);
-#endif
 }
-#ifdef FT_81X_ENABLE
+
 int16_t Ft_Gpu_Hal_SetSPI(Ft_Gpu_Hal_Context_t *host,FT_GPU_SPI_NUMCHANNELS_T numchnls,FT_GPU_SPI_NUMDUMMYBYTES numdummy)
 {
 	uint8_t writebyte = 0;
@@ -766,7 +699,6 @@ int16_t Ft_Gpu_Hal_SetSPI(Ft_Gpu_Hal_Context_t *host,FT_GPU_SPI_NUMCHANNELS_T nu
 	/* set the parameters in hal context and also set into ft81x */
 	return 0;
 }
-#endif
 
 /* FIFO related apis */
 //Init all the parameters of fifo buffer
@@ -899,13 +831,10 @@ uint32_t Ft_Gpu_CurrentFrequency(Ft_Gpu_Hal_Context_t *host)
 
     t0 = Ft_Gpu_Hal_Rd32(host,REG_CLOCK); /* t0 read */
                
-#if (defined(MSVC_PLATFORM) || defined(MSVC_FT800EMU))
 	//may not be precise
 	Sleep(15625/1000);
-#endif
-#ifdef ARDUINO_PLATFORM
 	delayMicroseconds(15625);
-#endif
+
 
     t1 = Ft_Gpu_Hal_Rd32(host,REG_CLOCK); /* t1 read */
     return ((t1 - t0) * 64); /* bitshift 6 places is the same as multiplying 64 */

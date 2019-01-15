@@ -67,13 +67,11 @@ const uint8_t FT_DLCODE_BOOTUP[12] =
 {
     0,0,0,2,//GPU instruction CLEAR_COLOR_RGB
     7,0,0,38, //GPU instruction CLEAR
-
     0,0,0,0,  //GPU instruction DISPLAY
 };
+
 void Ft_App_WrCoCmd_Buffer(Ft_Gpu_Hal_Context_t *phost,uint32_t cmd)
 {
-
-
   Ft_Gpu_Hal_WrCmd32(phost,cmd);
 
    /* Increment the command index */
@@ -82,10 +80,7 @@ void Ft_App_WrCoCmd_Buffer(Ft_Gpu_Hal_Context_t *phost,uint32_t cmd)
 
 void Ft_App_WrDlCmd_Buffer(Ft_Gpu_Hal_Context_t *phost,uint32_t cmd)
 {
-
-
-	  Ft_Gpu_Hal_Wr32(phost,(RAM_DL+Ft_DlBuffer_Index),cmd);
-
+	Ft_Gpu_Hal_Wr32(phost,(RAM_DL+Ft_DlBuffer_Index),cmd);
    /* Increment the command index */
    Ft_DlBuffer_Index += FT_CMD_SIZE;  
 }
@@ -93,15 +88,12 @@ void Ft_App_WrDlCmd_Buffer(Ft_Gpu_Hal_Context_t *phost,uint32_t cmd)
 void Ft_App_Flush_DL_Buffer(Ft_Gpu_Hal_Context_t *phost)
 {   
   Ft_DlBuffer_Index = 0;
-
 }
 
 void Ft_App_Flush_Co_Buffer(Ft_Gpu_Hal_Context_t *phost)
 {
-    
   Ft_CmdBuffer_Index = 0;
 }
-
 
 /* API to give fadeout effect by changing the display PWM from 100 till 0 */
 void SAMAPP_fadeout()
@@ -130,7 +122,6 @@ void SAMAPP_fadein()
   i = 128;
   Ft_Gpu_Hal_Wr8(phost,REG_PWM_DUTY,i);
 }
-
 
 /* API to check the status of previous DLSWAP and perform DLSWAP of new DL */
 /* Check for the status of previous DLSWAP and if still not done wait for few ms and check again */
@@ -167,11 +158,6 @@ void Ft_BootupConfig()
 		Ft_Gpu_Hal_Sleep(20);
 
 		/* Set the clk to external clock */
-#if (!defined(ME800A_HV35R) && !defined(ME810A_HV35R))
-		Ft_Gpu_HostCommand(phost,FT_GPU_EXTERNAL_OSC);
-		Ft_Gpu_Hal_Sleep(10);
-#endif
-
 		{
 			uint8_t chipid;
 			//Read Register ID to check if FT800 is ready.
@@ -183,26 +169,7 @@ void Ft_BootupConfig()
 			}
 	}
 	/* Configuration of LCD display */
-#ifdef DISPLAY_RESOLUTION_QVGA
-	/* Values specific to QVGA LCD display */
-	FT_DispWidth = 320;
-	FT_DispHeight = 240;
-	FT_DispHCycle =  408;
-	FT_DispHOffset = 70;
-	FT_DispHSync0 = 0;
-	FT_DispHSync1 = 10;
-	FT_DispVCycle = 263;
-	FT_DispVOffset = 13;
-	FT_DispVSync0 = 0;
-	FT_DispVSync1 = 2;
-	FT_DispPCLK = 8;
-	FT_DispSwizzle = 2;
-	FT_DispPCLKPol = 0;
-	FT_DispCSpread = 1;
-	FT_DispDither = 1;
 
-#endif
-#ifdef DISPLAY_RESOLUTION_WVGA
 	/* Values specific to QVGA LCD display */
 	FT_DispWidth = 800;
 	FT_DispHeight = 480;
@@ -219,36 +186,6 @@ void Ft_BootupConfig()
 	FT_DispPCLKPol = 1;
 	FT_DispCSpread = 0;
 	FT_DispDither = 1;
-#endif
-#ifdef DISPLAY_RESOLUTION_HVGA_PORTRAIT
-	/* Values specific to HVGA LCD display */
-
-	FT_DispWidth = 320;
-	FT_DispHeight = 480;
-	FT_DispHCycle =  400;
-	FT_DispHOffset = 40;
-	FT_DispHSync0 = 0;
-	FT_DispHSync1 = 10;
-	FT_DispVCycle = 500;
-	FT_DispVOffset = 10;
-	FT_DispVSync0 = 0;
-	FT_DispVSync1 = 5;
-	FT_DispPCLK = 4;
-	FT_DispSwizzle = 2;
-	FT_DispPCLKPol = 1;
-	FT_DispCSpread = 1;
-	FT_DispDither = 1;
-
-#ifdef ME810A_HV35R
-	FT_DispPCLK = 5;
-#endif
-
-#endif
-
-#if (defined(ME800A_HV35R) || defined(ME810A_HV35R))
-	/* After recognizing the type of chip, perform the trimming if necessary */
-    Ft_Gpu_ClockTrimming(phost,LOW_FREQ_BOUND);
-#endif
 
 	Ft_Gpu_Hal_Wr16(phost, REG_HCYCLE, FT_DispHCycle);
 	Ft_Gpu_Hal_Wr16(phost, REG_HOFFSET, FT_DispHOffset);
@@ -265,10 +202,11 @@ void Ft_BootupConfig()
 	Ft_Gpu_Hal_Wr16(phost, REG_CSPREAD, FT_DispCSpread);
 	Ft_Gpu_Hal_Wr16(phost, REG_DITHER, FT_DispDither);
 
-#if (defined(FT_800_ENABLE) || defined(FT_810_ENABLE) ||defined(FT_812_ENABLE))
+#ifdef FT_812_ENABLE
     /* Touch configuration - configure the resistance value to 1200 - this value is specific to customer requirement and derived by experiment */
     Ft_Gpu_Hal_Wr16(phost, REG_TOUCH_RZTHRESH,RESISTANCE_THRESHOLD);
 #endif
+
     Ft_Gpu_Hal_Wr8(phost, REG_GPIO_DIR,0xff);
     Ft_Gpu_Hal_Wr8(phost, REG_GPIO,0xff);
 
@@ -280,46 +218,6 @@ void Ft_BootupConfig()
 
     Ft_Gpu_Hal_Wr8(phost, REG_PCLK,FT_DispPCLK);//after this display is visible on the LCD
 
-
-#ifdef ENABLE_ILI9488_HVGA_PORTRAIT
-	/* to cross check reset pin */
-	Ft_Gpu_Hal_Wr8(phost, REG_GPIO,0xff);
-	ft_delay(120);
-	Ft_Gpu_Hal_Wr8(phost, REG_GPIO,0x7f);
-	ft_delay(120);
-	Ft_Gpu_Hal_Wr8(phost, REG_GPIO,0xff);
-
-	ILI9488_Bootup();
-
-	/* Reconfigure the SPI */
-
-#endif
-
-
-
-
-
-	/* make the spi to quad mode - addition 2 bytes for silicon */
-#ifdef FT_81X_ENABLE
-	/* api to set quad and numbe of dummy bytes */
-#ifdef ENABLE_SPI_QUAD
-	Ft_Gpu_Hal_SetSPI(phost,FT_GPU_SPI_QUAD_CHANNEL,FT_GPU_SPI_TWODUMMY);
-#elif ENABLE_SPI_DUAL
-	Ft_Gpu_Hal_SetSPI(phost,FT_GPU_SPI_DUAL_CHANNEL,FT_GPU_SPI_TWODUMMY);
-#else
-	Ft_Gpu_Hal_SetSPI(phost,FT_GPU_SPI_SINGLE_CHANNEL,FT_GPU_SPI_ONEDUMMY);
-#endif
-
-#endif
-
-#ifdef ENABLE_SPI_QUAD
-#elif ENABLE_SPI_DUAL	
-#ifdef FT900_PLATFORM
-	spi_option(SPIM,spi_option_bus_width,2);
-#endif
-#else
-
-#endif
 phost->ft_cmd_fifo_wp = Ft_Gpu_Hal_Rd16(phost,REG_CMD_WRITE);
 
 }
@@ -427,9 +325,9 @@ void Info()
   dloffset = Ft_Gpu_Hal_Rd16(phost,REG_CMD_DL);
   dloffset -= 4;
 
-#ifdef FT_81X_ENABLE
+
   dloffset -= 2*4;//remove two more instructions in case of 81x
-#endif
+
 
 
   Ft_Gpu_Hal_WrCmd32(phost,CMD_MEMCPY);
@@ -478,13 +376,11 @@ void Info()
     Ft_App_WrCoCmd_Buffer(phost,BEGIN(BITMAPS));
 
 
-#ifdef DISPLAY_RESOLUTION_WVGA
+
     Ft_App_WrCoCmd_Buffer(phost, BITMAP_HANDLE(14));
     Ft_App_WrCoCmd_Buffer(phost, CELL(4));
     Ft_App_WrCoCmd_Buffer(phost,VERTEX2F((FT_DispWidth/2-14)*16,(FT_DispHeight-75)*16));
-#else
-    Ft_App_WrCoCmd_Buffer(phost,VERTEX2II((FT_DispWidth/2)-14,(FT_DispHeight-75),14,4));
-#endif
+
     Ft_App_WrCoCmd_Buffer(phost,DISPLAY());
     Ft_Gpu_CoCmd_Swap(phost);
     Ft_App_Flush_Co_Buffer(phost);
@@ -503,33 +399,21 @@ void Sketch()
   Ft_Gpu_CoCmd_Dlstart(phost);
   Ft_Gpu_CoCmd_FgColor(phost,0xffffff);        // Set the bg color
   Ft_Gpu_CoCmd_Track(phost,(FT_DispWidth-30),40,8,FT_DispHeight-100,1);
-#if defined FT_801_ENABLE
-  Ft_Gpu_CoCmd_CSketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-30,0,L8,1500L);
-#elif defined FT_81X_ENABLE
+
   Ft_Gpu_CoCmd_Sketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-30,0,L8);
-#else
-  Ft_Gpu_CoCmd_Sketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-30,0,L8);
-#endif
-/*
-#if defined FT_801_ENABLE
-  Ft_Gpu_CoCmd_CSketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-20,0,L8,1500L);
-#elif defined FT_81X_ENABLE
-  Ft_Gpu_CoCmd_Sketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-20,0,L8);
-#else
-  Ft_Gpu_CoCmd_Sketch(phost,0,10,FT_DispWidth-40,FT_DispHeight-20,0,L8);
-#endif
-  */
+
+
   Ft_Gpu_CoCmd_MemZero(phost,0L,(FT_DispWidth-40)*(FT_DispHeight-20L));  
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_HANDLE(1));
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_SOURCE(0));
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_LAYOUT(L8,FT_DispWidth-40,FT_DispHeight-20));
-#ifdef FT_81X_ENABLE
+
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_LAYOUT_H((FT_DispWidth-40)>>10,(FT_DispHeight-20)>>9));
-#endif
+
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_SIZE(NEAREST,BORDER,BORDER,(FT_DispWidth-40),(FT_DispHeight-20)));
-#ifdef FT_81X_ENABLE
+
   Ft_App_WrCoCmd_Buffer(phost,BITMAP_SIZE_H((FT_DispWidth-40)>>9,(FT_DispHeight-20)>>9));
-#endif
+
   Ft_Gpu_CoCmd_Swap(phost);
   Ft_App_Flush_Co_Buffer(phost);
   Ft_Gpu_Hal_WaitCmdfifo_empty(phost);				
@@ -622,9 +506,7 @@ void setup()
 	/* Close all the opened handles */
     Ft_Gpu_Hal_Close(phost);
     Ft_Gpu_Hal_DeInit();
-#ifdef MSVC_PLATFORM
-	return 0;
-#endif
+
 }
 
 void loop()

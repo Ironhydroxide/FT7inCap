@@ -34,10 +34,6 @@ File Description:
     some helper functions defined for FT800 coprocessor engine as well as host commands.
  
  */
-#ifndef FT_GPU_HAL_H
-#define FT_GPU_HAL_H
-
-
 
 typedef enum {
 	FT_GPU_I2C_MODE = 0,
@@ -193,7 +189,7 @@ typedef enum {
 }FT_GPU_POWER_MODE_T;
 
 
-#ifdef FT_81X_ENABLE
+
 	typedef enum {
 		FT_GPU_SYSCLK_DEFAULT = 0x00,  //default 60mhz
 		FT_GPU_SYSCLK_72M = 0x06, 
@@ -243,7 +239,6 @@ typedef enum {
 	#define FT_GPU_81X_RESET_ACTIVE 0x000268
 
 	#define FT_GPU_81X_RESET_REMOVAL 0x002068
-#endif
 
 #define FT_GPU_CORE_RESET  (0x68)
 
@@ -261,8 +256,6 @@ typedef enum {
 #define FT_SPI_ONE_DUMMY_BYTE	(0x00)
 #define FT_SPI_TWO_DUMMY_BYTE	(0x04)
 #define FT_SPI_SINGLE_CHANNEL	(0x00)
-#define FT_SPI_DUAL_CHANNEL		(0x01)
-#define FT_SPI_QUAD_CHANNEL		(0x02)
 
 ft_int32_t hal_strlen(const ft_char8_t *s);
 ft_void_t Ft_Gpu_Hal_Sleep(ft_uint32_t ms);
@@ -273,7 +266,7 @@ ft_void_t Ft_Gpu_CoreReset(Ft_Gpu_Hal_Context_t *host);
 ft_void_t Ft_Gpu_Hal_StartTransfer(Ft_Gpu_Hal_Context_t *host,FT_GPU_TRANSFERDIR_T rw,ft_uint32_t addr);
 ft_void_t Ft_Gpu_Hal_WrMem(Ft_Gpu_Hal_Context_t *host,ft_uint32_t addr, const uint8_t *buffer, ft_uint32_t length);
 ft_void_t Ft_Gpu_Hal_WrMemFromFlash(Ft_Gpu_Hal_Context_t *host,ft_uint32_t addr,const ft_prog_uchar8_t *buffer, ft_uint32_t length);
-ft_void_t Ft_Gpu_Hal_WrCmdBufFromFlash(Ft_Gpu_Hal_Context_t *host,FT_PROGMEM ft_prog_uchar8_t *buffer,ft_uint32_t count);
+ft_void_t Ft_Gpu_Hal_WrCmdBufFromFlash(Ft_Gpu_Hal_Context_t *host,PROGMEM ft_prog_uchar8_t *buffer,ft_uint32_t count);
 ft_void_t Ft_Gpu_Hal_RdMem(Ft_Gpu_Hal_Context_t *host,ft_uint32_t addr, uint8_t  *buffer, ft_uint32_t length);
 ft_void_t Ft_Gpu_Hal_WaitLogo_Finish(Ft_Gpu_Hal_Context_t *host);
 uint8_t Ft_Gpu_Hal_TransferString(Ft_Gpu_Hal_Context_t *host,const ft_char8_t *string);
@@ -285,15 +278,13 @@ ft_void_t Ft_Gpu_Hal_WrCmdBuf_nowait(Ft_Gpu_Hal_Context_t *host, uint8_t  *buffe
 ft_uint16_t Ft_Gpu_Cmdfifo_Freespace(Ft_Gpu_Hal_Context_t *host);
 ft_int16_t Ft_Gpu_Hal_SetSPI(Ft_Gpu_Hal_Context_t *host,FT_GPU_SPI_NUMCHANNELS_T numchnls,FT_GPU_SPI_NUMDUMMYBYTES numdummy);
 
-#ifdef FT_81X_ENABLE
+
 ft_void_t Ft_Gpu_81X_SelectSysCLK(Ft_Gpu_Hal_Context_t *host, FT_GPU_81X_PLL_FREQ_T freq);
 ft_void_t Ft_GPU_81X_PowerOffComponents(Ft_Gpu_Hal_Context_t *host, uint8_t  val);
 ft_void_t Ft_GPU_81X_PadDriveStrength(Ft_Gpu_Hal_Context_t *host, FT_GPU_81X_GPIO_DRIVE_STRENGTH_T strength, FT_GPU_81X_GPIO_GROUP_T group);
 ft_void_t Ft_Gpu_81X_ResetActive(Ft_Gpu_Hal_Context_t *host);
 ft_void_t Ft_Gpu_81X_ResetRemoval(Ft_Gpu_Hal_Context_t *host);
-#endif
+
 
 ft_uint32_t Ft_Gpu_CurrentFrequency(Ft_Gpu_Hal_Context_t *host);
 ft_int32_t Ft_Gpu_ClockTrimming(Ft_Gpu_Hal_Context_t *host,ft_int32_t LowFreq);
-
-#endif  /* FT_GPU_HAL_H */
