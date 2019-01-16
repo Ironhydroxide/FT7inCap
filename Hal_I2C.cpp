@@ -33,9 +33,20 @@ Revision History:
 /* This file contains apis related to i2c */
 
 /* Standard includes */
-#include "FT_Platform.h"
+#include "Platform.h"
 #include "Wire.h"
-#include "FT_Hal_I2C.h"
+#if 0
+#include "DataTypes.h"
+#include "Gpu.h"
+#ifdef ARDUINO_PLATFORM
+#include <stdio.h>
+#include <Arduino.h>
+#include <SPI.h>
+#include <avr/pgmspace.h>
+#include <Wire.h>
+#endif
+#endif
+#include "Hal_I2C.h"
 
 /* mainly assosiated to rtc - need to make it generic */
 
@@ -44,16 +55,16 @@ Revision History:
 int16_t hal_rtc_i2c_init()
 {
   Wire.begin();
-  ft_delay(100);  
+  delay(100);  
   return 0;
 }
 
 /* api to read n bytes from addr */
-int16_t hal_rtc_i2c_read(uint8_t addr, uint8_t  *buffer,uint16_t length)
+int16_t hal_rtc_i2c_read(uint8_t addr, uint8_t *buffer,uint16_t length)
 {
   uint16_t i;
   short count = 0;
- uint8_t writeResult = 0;
+  uint8_t writeResult = 0;
    while (length > 28)
   {
     hal_rtc_i2c_read(addr,buffer,28);
@@ -87,7 +98,7 @@ int16_t hal_rtc_i2c_read(uint8_t addr, uint8_t  *buffer,uint16_t length)
 }
 
 /* API to write data into particular location */
-int16_t hal_rtc_i2c_write(uint8_t addr, uint8_t  *buffer,uint16_t length)
+int16_t hal_rtc_i2c_write(uint8_t addr, uint8_t *buffer,uint16_t length)
 {
   uint16_t i;
   byte writeResult = 0;

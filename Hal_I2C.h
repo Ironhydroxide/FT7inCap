@@ -28,28 +28,31 @@ Author : FTDI
 
 Revision History: 
 0.1 - date 2013.04.24 - initial version
-0.2 - date 2014.04.28 - Split in individual files according to platform
+0.2 - date 2013.08.19 - few minor edits
 
 */
 
-typedef byte ft_uint8_t;
-typedef char ft_char8_t;
-typedef signed char ft_schar8_t;
-typedef unsigned char ft_uchar8_t;
-typedef int  ft_int16_t;
-typedef word ft_uint16_t;
-typedef unsigned long ft_uint32_t;
-typedef long ft_int32_t;
-typedef void ft_void_t;
+/* This file contains interface to I2C */
+#ifndef HAL_I2C_H
+#define HAL_I2C_H
 
-typedef boolean ft_bool_t;
+#ifdef  ARDUINO_ATMEGA328P_I2C
+#define ATMEGA328P_RTC_I2C_ADDRESS     (0x6F)//7 bit i2c address and last bit is for read/write information
+#define ATMEGA328P_I2C_BURST_SIZE  (28)
+#define ATMEGA328P_RTC_MFP  (2)
+#endif
 
-typedef const unsigned char  ft_prog_uchar8_t;
-typedef const char   ft_prog_char8_t;
-typedef const unsigned int ft_prog_uint16_t;
+/* API prototypes */
+int16_t hal_rtc_i2c_init();
+int16_t hal_rtc_i2c_read(uint8_t addr, uint8_t *buffer,uint16_t length);
+int16_t hal_rtc_i2c_write(uint8_t addr, uint8_t *buffer,uint16_t length);
 
-/* Nothing beyond this*/
 
+          
+#endif /* HAL_I2C_H */
+
+
+/* Nothing beyond this */
 
 
 

@@ -20,65 +20,30 @@ IF A CUSTOM VENDOR ID AND/OR PRODUCT ID OR DESCRIPTION STRING ARE USED, IT IS TH
 RESPONSIBILITY OF THE PRODUCT MANUFACTURER TO MAINTAIN ANY CHANGES AND SUBSEQUENT WHQL
 RE-CERTIFICATION AS A RESULT OF MAKING THESE CHANGES.
 
-Abstract:
-
-This file contains is functions for all UI fields.
-
 Author : FTDI 
 
 Revision History: 
-0.1 - date 2013.04.24 - initial version
-0.2 - date 2014.04.28 - Split in individual files according to platform
-1.0 - date 2014.11.24 - Addition of FT81x
-1.1 - date 2015.04.15 - Introduction of module specific configurations
+0.1 - date 2013.04.24 - Initial Version
+0.2 - date 2013.08.19 - made few changes.
+0.3 - date 2015.03.16 - Added ALIGN_TWO_POWER_N() macro.
 */
 
-		#define DISPLAY_RESOLUTION_WQVGA				(1)
-		#define FT800_INT 								(3)
-		#define FT800_PD_N 								(4)
-		#define FT_SDCARD_CS						    (5)       
-		#define FT800_CS 								(10)
-		#define FT_ARDUINO_PRO_SPI_CS 					(10)
+#ifndef _HAL_UTILS_H_
+#define _HAL_UTILS_H_
 
 
-/* Custom configuration set by the user */
-	
+#define RGB(r, g, b)  ((((vc_int32_t)(r)) << 16) | (((vc_int32_t)(g)) << 8) | (b))
+#define SQ(v) ((v) * (v))
+#define MIN(x,y)  ((x) > (y) ? (y) : (x))
+#define MAX(x,y)  ((x) > (y) ? (x) : (y))
+#define PLAYCOLOR        0x00A0A080
+#define NOTE(n, sharp)   (((n) - 'C') + ((sharp) * 128))
+#define F16(s)           ((vc_int32_t)((s) * 65536))
+#define INVALID_TOUCH_XY   0x8000
+#define ABS(x)  ((x) > (0) ? (x) : (-x))
+#define ALIGN_TWO_POWER_N(Value,alignval) (((Value) + (alignval - 1))&(~(alignval - 1)))
 
-
-		/* SPI specific macros - compile time switches for SPI single, dial and quad use cases */
-
-		#define FT800_CS                 (10)
-		#define FT800_INT                 (9)
-		#define FT800_PD_N                (8)
-		#define FT_SDCARD_CS                (5)  
-
-
-		/* Threshold for resistance */
-		#define RESISTANCE_THRESHOLD					(1200)
-
-/* Standard C libraries */
-#include <stdio.h>
-/* Standard Arduino libraries */
-#include <Arduino.h>
-#include <EEPROM.h>
-#include <SPI.h>
-#include <avr/pgmspace.h>
-
-
-/* HAL inclusions */
-#include "FT_Gpu_Hal.h"
-#include "FT_Gpu.h"
-#include "FT_CoPro_Cmds.h"
-#include "FT_Hal_Utils.h"
-
-
-
-
-#define FT800_SEL_PIN 							FT800_CS
-
-#endif /*_FT_PLATFORM_H_*/
-/* Nothing beyond this*/
-
+#endif /* _HAL_UTILS_H_ */
 
 
 

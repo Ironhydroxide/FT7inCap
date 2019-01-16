@@ -28,23 +28,47 @@ Author : FTDI
 
 Revision History: 
 0.1 - date 2013.04.24 - initial version
-0.2 - date 2013.08.19 - few minor edits
+0.2 - date 2014.04.28 - Split in individual files according to platform
 
 */
-
-/* This file contains interface to I2C */
-#define FT_ATMEGA328P_RTC_I2C_ADDRESS     (0x6F)//7 bit i2c address and last bit is for read/write information
-#define FT_ATMEGA328P_I2C_BURST_SIZE  (28)
-#define FT_ATMEGA328P_RTC_MFP  (2)
-#endif
-
-/* API prototypes */
-ft_int16_t hal_rtc_i2c_init();
-ft_int16_t hal_rtc_i2c_read(ft_uint8_t addr, ft_uint8_t *buffer,ft_uint16_t length);
-ft_int16_t hal_rtc_i2c_write(ft_uint8_t addr, ft_uint8_t *buffer,ft_uint16_t length);
+#ifndef _DATATYPES_H_
+#define _DATATYPES_H_
 
 
-/* Nothing beyond this */
+//#define FALSE           (0)
+//#define TRUE            (1)
+
+//typedef byte uint8_t;
+typedef char char8_t;
+typedef signed char schar8_t;
+typedef unsigned char uchar8_t;
+//typedef int  int16_t;
+//typedef word uint16_t;
+//typedef unsigned long uint32_t;
+//typedef long int32_t;
+//typedef void void_t;
+
+//typedef boolean bool_t;
+
+typedef const unsigned char  prog_uchar8_t;
+typedef const char   prog_char8_t;
+//typedef const unsigned int prog_uint16_t;
+
+//#define delay(x) delay(x)
+
+//#define PROGMEM PROGMEM
+//#define pgm_read_byte_near pgm_read_byte_near
+//#define pgm_read_byte pgm_read_byte
+//#define pgm_read_word pgm_read_word
+//#define random(x)		(random(x))
+
+//#define TRUE     (1)
+//#define FALSE    (0)
+
+#endif /*_DATATYPES_H_*/
+
+/* Nothing beyond this*/
+
 
 
 
