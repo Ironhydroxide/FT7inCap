@@ -45,9 +45,9 @@ Revision History:
 #define CTOUCH_MODE_EXTENDED 0
 
 #ifndef 81X_ENABLE
-
-/* For FT801 enable the switch in platform.h file */
-/* Lower boundary of trimming */
+/*
+// For FT801 enable the switch in platform.h file 
+// Lower boundary of trimming 
 #define LOW_FREQ_BOUND  47040000L//98% of 48Mhz
 
 #define FT800_VERSION "1.9.0".
@@ -339,7 +339,7 @@ Revision History:
 #define DISPLAY() ((0UL<<24))
 
 
-
+*/
 
 
 #else
@@ -496,13 +496,13 @@ Revision History:
 #define RAM_CMD              3178496UL
 #define RAM_DL               3145728UL
 #define RAM_G                0UL
-#define RAM_REG              3153920UL
+#define RAM_REG              3153920UL //Offset 0x00
 #define RAM_ROMSUB           3186688UL
 #define RECTS                9UL
 
 #define ROMFONT_TABLEADDRESS 3145724UL
 
-#define REG_ANALOG           3154284UL
+#define REG_ANALOG           3154284UL  //Address 0x30216C //Offset 0x16C
 #define REG_ANA_COMP         3154308UL
 #define REG_BIST_EN          3154292UL
 #define REG_BUSYBITS         3154152UL
@@ -514,31 +514,41 @@ Revision History:
 #define REG_CMD_WRITE        3154172UL
 #define REG_CPURESET         3153952UL
 #define REG_CRC              3154296UL
-#define REG_CSPREAD          3154024UL
-#define REG_CTOUCH_EXTENDED  3154184UL
-//modified below to reflect the same as datasheet
-#define REG_CTOUCH_TOUCH0_XY 3154212UL
-#define REG_CTOUCH_TOUCH4_X  3154284UL
-#define REG_CTOUCH_TOUCH4_Y  3154208UL
-#define REG_CTOUCH_TOUCH1_XY 3154204UL
-#define REG_CTOUCH_TOUCH2_XY 3154316UL
-#define REG_CTOUCH_TOUCH3_XY 3154320UL
+#define REG_CSPREAD          3154024UL //Offset 0x68
+#define REG_CTOUCH_EXTENDED  3154184UL //Address 0x302108 //Offset 0x108
+#define REG_CTOUCH_MODE		 3154180UL //Address 0x302104 //Offset 0x104
+#define REG_CTOUCH_TAG0		 3154220UL //Address 0x30212C //Offset 0x12C //Datasheet REG_CTOUCH_TAG
+#define REG_CTOUCH_TAG0_XY	 3154216UL //Address 0x302128 //Offset 0x128 //Datasheet REG_CTOUCH_TAG_XY
+#define REG_CTOUCH_TAG1		 3154228UL //Address 0x302134 //Offset 0x134
+#define REG_CTOUCH_TAG1_XY	 3154224UL //Address 0x302130 //Offset 0x130
+#define REG_CTOUCH_TAG2		 3154236UL //Address 0x30213C //Offset 0x13C
+#define REG_CTOUCH_TAG2_XY	 3154232UL //Address 0x302138 //Offset 0x138
+#define REG_CTOUCH_TAG3		 3154244UL //Address 0x302144 //Offset 0x144
+#define REG_CTOUCH_TAG3_XY	 3154240UL //Address 0x302140 //Offset 0x140
+#define REG_CTOUCH_TAG4		 3154252UL //Address 0x30214C //Offset 0x14C
+#define REG_CTOUCH_TAG4_XY	 3154248UL //Address 0x302148 //Offset 0x148
+#define REG_CTOUCH_TOUCH0_XY 3154212UL //Address 0x302124 //Offset 0x124 //Datasheet REG_CTOUCH_TOUCH_XY
+#define REG_CTOUCH_TOUCH4_X  3154284UL //Address 0x30216C //Offset 0x16C
+#define REG_CTOUCH_TOUCH4_Y  3154208UL //Address 0x302120 //Offset 0x120
+#define REG_CTOUCH_TOUCH1_XY 3154204UL //Address 0x30211C //Offset 0x11C //Datasheet REG_CTOUCH_RAW_XY
+#define REG_CTOUCH_TOUCH2_XY 3154316UL //Address 0x30218C //Offset 0x18C
+#define REG_CTOUCH_TOUCH3_XY 3154320UL //Address 0x302190 //Offset 0x190
 #define REG_CYA_TOUCH        3154280UL
 #define REG_DATESTAMP        3155300UL
-#define REG_DITHER           3154016UL
-#define REG_DLSWAP           3154004UL
+#define REG_DITHER           3154016UL //Offset 0x60
+#define REG_DLSWAP           3154004UL //Offset 0x54
 #define REG_FRAMES           3153924UL
 #define REG_FREQUENCY        3153932UL
 #define REG_GPIO             3154068UL
 #define REG_GPIOX            3154076UL
 #define REG_GPIOX_DIR        3154072UL
 #define REG_GPIO_DIR         3154064UL
-#define REG_HCYCLE           3153964UL
-#define REG_HOFFSET          3153968UL
-#define REG_HSIZE            3153972UL
-#define REG_HSYNC0           3153976UL
-#define REG_HSYNC1           3153980UL
-#define REG_ID               3153920UL
+#define REG_HCYCLE           3153964UL //Offset 0x2C
+#define REG_HOFFSET          3153968UL //Offset 0x30
+#define REG_HSIZE            3153972UL //Offset 0x34
+#define REG_HSYNC0           3153976UL //Offset 0x38
+#define REG_HSYNC1           3153980UL //Offset 0x3C
+#define REG_ID               3153920UL //Offset 0x00
 #define REG_INT_EN           3154092UL
 #define REG_INT_FLAGS        3154088UL
 #define REG_INT_MASK         3154096UL
@@ -546,77 +556,78 @@ Revision History:
 #define REG_MACRO_1          3154140UL
 #define REG_MEDIAFIFO_READ   3182612UL
 #define REG_MEDIAFIFO_WRITE  3182616UL
-#define REG_OUTBITS          3154012UL
+#define REG_OUTBITS          3154012UL //Offset 0x5C
 #define REG_PATCHED_ANALOG   3154288UL
-#define REG_PATCHED_TOUCH_FAULT 3154284UL
-#define REG_PCLK             3154032UL
-#define REG_PCLK_POL         3154028UL
-#define REG_PLAY             3154060UL
-#define REG_PLAYBACK_FORMAT  3154116UL
-#define REG_PLAYBACK_FREQ    3154112UL
-#define REG_PLAYBACK_LENGTH  3154104UL
-#define REG_PLAYBACK_LOOP    3154120UL
-#define REG_PLAYBACK_PLAY    3154124UL
-#define REG_PLAYBACK_READPTR 3154108UL
-#define REG_PLAYBACK_START   3154100UL
+#define REG_PATCHED_TOUCH_FAULT 3154284UL //Address 0x30216C //Offset 0x16C
+#define REG_PCLK             3154032UL //Offset 0x70
+#define REG_PCLK_POL         3154028UL //Offset 0x6C
+#define REG_PLAY             3154060UL //Offset 0x8C
+#define REG_PLAYBACK_FORMAT  3154116UL //Offset 0xC4
+#define REG_PLAYBACK_FREQ    3154112UL //Offset 0xC0
+#define REG_PLAYBACK_LENGTH  3154104UL //Offset 0xB8
+#define REG_PLAYBACK_LOOP    3154120UL //Offset 0xC8
+#define REG_PLAYBACK_PLAY    3154124UL //Offset 0xCC
+#define REG_PLAYBACK_READPTR 3154108UL //Offset 0xBC
+#define REG_PLAYBACK_START   3154100UL //Offset 0xB4
 #define REG_PWM_DUTY         3154132UL
 #define REG_PWM_HZ           3154128UL
 #define REG_RENDERMODE       3153936UL
 #define REG_ROMSUB_SEL       3154160UL
-#define REG_ROTATE           3154008UL
+#define REG_ROTATE           3154008UL //Offset 0x58
 #define REG_SNAPFORMAT       3153948UL
 #define REG_SNAPSHOT         3153944UL
 #define REG_SNAPY            3153940UL
-#define REG_SOUND            3154056UL
+#define REG_SOUND            3154056UL //Offset 0x88
 #define REG_SPI_EARLY_TX     3154300UL
 #define REG_SPI_WIDTH        3154312UL
-#define REG_SWIZZLE          3154020UL
-#define REG_TAG              3154044UL
-#define REG_TAG_X            3154036UL
-#define REG_TAG_Y            3154040UL
+#define REG_SWIZZLE          3154020UL //Offset 0x64
+#define REG_TAG              3154044UL //Offset 0x7C
+#define REG_TAG_X            3154036UL //Offset 0x74
+#define REG_TAG_Y            3154040UL //Offset 0x78
 #define REG_TAP_CRC          3153956UL
 #define REG_TAP_MASK         3153960UL
-#define REG_TOUCH_ADC_MODE   3154184UL
-#define REG_TOUCH_CHARGE     3154188UL
-#define REG_TOUCH_DIRECT_XY  3154316UL
-#define REG_TOUCH_DIRECT_Z1Z2 3154320UL
+#define REG_TOUCH_ADC_MODE   3154184UL //Address 0x302108 //Offset 0x108
+#define REG_TOUCH_CHARGE     3154188UL //Address 0x30210C //Offset 0x10C
+#define REG_TOUCH_CONFIG	 3154280UL //Offset 0x168
+#define REG_TOUCH_DIRECT_XY  3154316UL //Address 0x30218C //Offset 0x18C
+#define REG_TOUCH_DIRECT_Z1Z2 3154320UL //Address 0x302190 //Offset 0x190
 #define REG_TOUCH_FAULT      3154288UL
-#define REG_TOUCH_MODE       3154180UL
-#define REG_TOUCH_OVERSAMPLE 3154196UL
-#define REG_TOUCH_RAW_XY     3154204UL
-#define REG_TOUCH_RZ         3154208UL
-#define REG_TOUCH_RZTHRESH   3154200UL
-#define REG_TOUCH_SCREEN_XY  3154212UL
-#define REG_TOUCH_SETTLE     3154192UL
-#define REG_TOUCH_TAG        3154220UL
-#define REG_TOUCH_TAG1       3154228UL
-#define REG_TOUCH_TAG1_XY    3154224UL
-#define REG_TOUCH_TAG2       3154236UL
-#define REG_TOUCH_TAG2_XY    3154232UL
-#define REG_TOUCH_TAG3       3154244UL
-#define REG_TOUCH_TAG3_XY    3154240UL
-#define REG_TOUCH_TAG4       3154252UL
-#define REG_TOUCH_TAG4_XY    3154248UL
-#define REG_TOUCH_TAG_XY     3154216UL
-#define REG_TOUCH_TRANSFORM_A 3154256UL
-#define REG_TOUCH_TRANSFORM_B 3154260UL
-#define REG_TOUCH_TRANSFORM_C 3154264UL
-#define REG_TOUCH_TRANSFORM_D 3154268UL
-#define REG_TOUCH_TRANSFORM_E 3154272UL
-#define REG_TOUCH_TRANSFORM_F 3154276UL
+#define REG_TOUCH_MODE       3154180UL //Address 0x302104 //Offset 0x104
+#define REG_TOUCH_OVERSAMPLE 3154196UL //Address 0x302114 //Offset 0x114
+#define REG_TOUCH_RAW_XY     3154204UL //Address 0x30211C //Offset 0x11C
+#define REG_TOUCH_RZ         3154208UL //Address 0x302120 //Offset 0x120
+#define REG_TOUCH_RZTHRESH   3154200UL //Address 0x302118 //Offset 0x118
+#define REG_TOUCH_SCREEN_XY  3154212UL //Address 0x302124 //Offset 0x124
+#define REG_TOUCH_SETTLE     3154192UL //Address 0x302110 //Offset 0x110
+#define REG_TOUCH_TAG        3154220UL //Address 0x30212C //Offset 0x12C
+#define REG_TOUCH_TAG1       3154228UL //Address 0x302134 //Offset 0x134
+#define REG_TOUCH_TAG1_XY    3154224UL //Address 0x302130 //Offset 0x130
+#define REG_TOUCH_TAG2       3154236UL //Address 0x30213C //Offset 0x13C
+#define REG_TOUCH_TAG2_XY    3154232UL //Address 0x302138 //Offset 0x138
+#define REG_TOUCH_TAG3       3154244UL //Address 0x302144 //Offset 0x144
+#define REG_TOUCH_TAG3_XY    3154240UL //Address 0x302140 //Offset 0x140
+#define REG_TOUCH_TAG4       3154252UL //Address 0x30214C //Offset 0x14C
+#define REG_TOUCH_TAG4_XY    3154248UL //Address 0x302148 //Offset 0x148
+#define REG_TOUCH_TAG_XY     3154216UL //Address 0x302128 //Offset 0x128
+#define REG_TOUCH_TRANSFORM_A 3154256UL //Offset 0x150
+#define REG_TOUCH_TRANSFORM_B 3154260UL //Offset 0x154
+#define REG_TOUCH_TRANSFORM_C 3154264UL //Offset 0x158
+#define REG_TOUCH_TRANSFORM_D 3154268UL //Offset 0x15C
+#define REG_TOUCH_TRANSFORM_E 3154272UL //Offset 0x160
+#define REG_TOUCH_TRANSFORM_F 3154276UL //Offset 0x164
 #define REG_TRACKER          3182592UL
 #define REG_TRACKER_1        3182596UL
 #define REG_TRACKER_2        3182600UL
 #define REG_TRACKER_3        3182604UL
 #define REG_TRACKER_4        3182608UL
 #define REG_TRIM             3154304UL
-#define REG_VCYCLE           3153984UL
-#define REG_VOFFSET          3153988UL
-#define REG_VOL_PB           3154048UL
-#define REG_VOL_SOUND        3154052UL
-#define REG_VSIZE            3153992UL
-#define REG_VSYNC0           3153996UL
-#define REG_VSYNC1           3154000UL
+#define REG_VCYCLE           3153984UL //Offset 0x40
+#define REG_VOFFSET          3153988UL //Offset 0x44
+#define REG_VOL_PB           3154048UL //Offset 0x80
+#define REG_VOL_SOUND        3154052UL //Offset 0x84
+#define REG_VSIZE            3153992UL //Offset 0x48
+#define REG_VSYNC0           3153996UL //Offset 0x4C
+#define REG_VSYNC1           3154000UL //Offset 0x50
 #define REPEAT               1UL
 #define REPLACE              2UL
 #define RGB332               4UL
