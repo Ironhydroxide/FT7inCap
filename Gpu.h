@@ -269,7 +269,8 @@ Revision History:
 #define REG_VSIZE            1057860UL
 #define REG_VSYNC0           1057864UL
 #define REG_VSYNC1           1057868UL
-/* FT801 Registers */
+// FT801 Registers
+
 #define REG_CTOUCH_EXTENDED 1058036UL
 #define REG_CTOUCH_GESTURE 1058104UL
 #define REG_CTOUCH_IDS 1058060UL

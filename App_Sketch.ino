@@ -218,29 +218,28 @@ void BootupConfig()
 {
 	Gpu_Hal_Powercycle(phost,TRUE);//cycles PD pin (low/high for TRUE, high/low for FALSE)
 
-		/* Access address 0 to wake up the FT800 */
-		Gpu_HostCommand(phost,GPU_ACTIVE_M);//sends cmd on SPI Gpu_HostCommand(*host, cmd) GPU_ACTIVE_M is 0x00,
-		/*Gpu_Hal_Sleep*/ delay(20);
+	/* Access address 0 to wake up the FT800 */
+	Gpu_HostCommand(phost,GPU_ACTIVE_M);//sends cmd on SPI Gpu_HostCommand(*host, cmd) GPU_ACTIVE_M is 0x00,
+	/*Gpu_Hal_Sleep*/ delay(20);
 
-		/* Set the clk to external clock */
+	/* Set the clk to external clock */
 /*#if (!defined(ME800A_HV35R) && !defined(ME810A_HV35R))
 		Gpu_HostCommand(phost,GPU_EXTERNAL_OSC);
 		//Gpu_Hal_Sleep delay(10);
 #endif*/
 
-		{
-			uint8_t chipid;
-			//Read Register ID to check if FT800 is ready.
-			chipid = Gpu_Hal_Rd8(phost, REG_ID);//sends REG_ID on SPI then empty byte, returns 8 bits
-			while(chipid != 0x7C)
-			{
-				chipid = Gpu_Hal_Rd8(phost, REG_ID);
-				delay(100);
-			}
+	uint8_t chipid;
+	//Read Register ID to check if FT800 is ready.
+	chipid = Gpu_Hal_Rd8(phost, REG_ID);//sends REG_ID on SPI then empty byte, returns 8 bits
+	while(chipid != 0x7C)
+	{
+		chipid = Gpu_Hal_Rd8(phost, REG_ID); //REG_ID is 3153920UL //Offset 0x00
+		delay(100);
+	}
 	/*#if defined(MSVC_PLATFORM)*//* || defined (FT900_PLATFORM)*//*
 			printf("VC1 register ID after wake up %x\n",chipid);
 	#endif*/
-	}
+	
 	/* Configuration of LCD display */
 /*#ifdef DISPLAY_RESOLUTION_QVGA
 	// Values specific to QVGA LCD display 
@@ -781,7 +780,7 @@ void setup()
 #ifdef ARDUINO_PLATFORM_SPI
   host.hal_config.spi_clockrate_khz = 4000; //in KHz//30000kHz is max for FT813
 #endif
-  Gpu_Hal_Open(&host);//pulls PD pin high, Pulls CS pin High, Starts SPI (badly)
+  Gpu_Hal_Open(&host);//pulls PD pin high, Pulls CS pin High, Starts SPI (badly), SPI Settings
 
   phost = &host;
 
