@@ -361,74 +361,75 @@ Revision History:
 #define BITMAPS              1UL
 #define BORDER               0UL
 #define CMDBUF_SIZE          4096UL
-#define CMD_APPEND           4294967070UL
-#define CMD_BGCOLOR          4294967049UL
+#define CMD_APPEND           4294967070UL //Address 0xFFFFFF1E
+#define CMD_BGCOLOR          4294967049UL //Address 0xFFFFFF09
 #define CMD_BITMAP_TRANSFORM 4294967073UL
-#define CMD_BUTTON           4294967053UL
-#define CMD_CALIBRATE        4294967061UL
-#define CMD_CLOCK            4294967060UL
-#define CMD_COLDSTART        4294967090UL
+#define CMD_BUTTON           4294967053UL //Address 0xFFFFFF0D
+#define CMD_CALIBRATE        4294967061UL //Address 0xFFFFFF15
+#define CMD_CLOCK            4294967060UL //Address 0xFFFFFF14
+#define CMD_COLDSTART        4294967090UL //Address 0xFFFFFF32
 #define CMD_CRC              4294967043UL
 #define CMD_CSKETCH 		 4294967093UL
-#define CMD_DIAL             4294967085UL
-#define CMD_DLSTART          4294967040UL
+#define CMD_DIAL             4294967085UL //Address 0xFFFFFF2D
+#define CMD_DLSTART          4294967040UL //Address 0xFFFFFF00
+#define CMD_DLSWAP           4294967041UL //Address 0xFFFFFF01
 #define CMD_EXECUTE          4294967047UL
-#define CMD_FGCOLOR          4294967050UL
-#define CMD_GAUGE            4294967059UL
-#define CMD_GETMATRIX        4294967091UL
+#define CMD_FGCOLOR          4294967050UL //Address 0xFFFFFF0A
+#define CMD_GAUGE            4294967059UL //Address 0xFFFFFF13
+#define CMD_GETMATRIX        4294967091UL //Address 0xFFFFFF33
 #define CMD_GETPOINT         4294967048UL
-#define CMD_GETPROPS         4294967077UL
-#define CMD_GETPTR           4294967075UL
-#define CMD_GRADCOLOR        4294967092UL
-#define CMD_GRADIENT         4294967051UL
+#define CMD_GETPROPS         4294967077UL //Address 0xFFFFFF25
+#define CMD_GETPTR           4294967075UL //Address 0xFFFFFF23
+#define CMD_GRADCOLOR        4294967092UL //Address 0xFFFFFF34
+#define CMD_GRADIENT         4294967051UL //Address 0xFFFFFF0B
 #define CMD_HAMMERAUX        4294967044UL
 #define CMD_IDCT_DELETED     4294967046UL
-#define CMD_INFLATE          4294967074UL
-#define CMD_INTERRUPT        4294967042UL
+#define CMD_INFLATE          4294967074UL //Address 0xFFFFFF22
+#define CMD_INTERRUPT        4294967042UL //Address 0xFFFFFF02
 #define CMD_INT_RAMSHARED    4294967101UL
 #define CMD_INT_SWLOADIMAGE  4294967102UL
-#define CMD_KEYS             4294967054UL
-#define CMD_LOADIDENTITY     4294967078UL
-#define CMD_LOADIMAGE        4294967076UL
+#define CMD_KEYS             4294967054UL //Address 0xFFFFFF0E
+#define CMD_LOADIDENTITY     4294967078UL //Address 0xFFFFFF26
+#define CMD_LOADIMAGE        4294967076UL //Address 0xFFFFFF24
 #define CMD_LOGO             4294967089UL
 #define CMD_MARCH            4294967045UL
-#define CMD_MEDIAFIFO        4294967097UL
-#define CMD_MEMCPY           4294967069UL
-#define CMD_MEMCRC           4294967064UL
-#define CMD_MEMSET           4294967067UL
-#define CMD_MEMWRITE         4294967066UL
-#define CMD_MEMZERO          4294967068UL
-#define CMD_NUMBER           4294967086UL
-#define CMD_PLAYVIDEO        4294967098UL
-#define CMD_PROGRESS         4294967055UL
-#define CMD_REGREAD          4294967065UL
+#define CMD_MEDIAFIFO        4294967097UL //Address 0xFFFFFF39
+#define CMD_MEMCPY           4294967069UL //Address 0xFFFFFF1D
+#define CMD_MEMCRC           4294967064UL //Address 0xFFFFFF18
+#define CMD_MEMSET           4294967067UL //Address 0xFFFFFF1B
+#define CMD_MEMWRITE         4294967066UL //Address 0xFFFFFF1A
+#define CMD_MEMZERO          4294967068UL //Address 0xFFFFFF1C
+#define CMD_NUMBER           4294967086UL //Address 0xFFFFFF2E
+#define CMD_PLAYVIDEO        4294967098UL //Address 0xFFFFFF3A
+#define CMD_PROGRESS         4294967055UL //Address 0xFFFFFF0F
+#define CMD_REGREAD          4294967065UL //Address 0xFFFFFF19
 #define CMD_ROMFONT          4294967103UL
-#define CMD_ROTATE           4294967081UL
-#define CMD_SCALE            4294967080UL
-#define CMD_SCREENSAVER      4294967087UL
-#define CMD_SCROLLBAR        4294967057UL
-#define CMD_SETBASE          4294967096UL
+#define CMD_ROTATE           4294967081UL //Address 0xFFFFFF29
+#define CMD_SCALE            4294967080UL //Address 0xFFFFFF28
+#define CMD_SCREENSAVER      4294967087UL //Address 0xFFFFFF2F
+#define CMD_SCROLLBAR        4294967057UL //Address 0xFFFFFF11
+#define CMD_SETBASE          4294967096UL //Address 0xFFFFFF38
 #define CMD_SETBITMAP        4294967107UL
-#define CMD_SETFONT          4294967083UL
-#define CMD_SETFONT2         4294967099UL
-#define CMD_SETMATRIX        4294967082UL
-#define CMD_SETROTATE        4294967094UL
+#define CMD_SETFONT          4294967083UL //Address 0xFFFFFF2B
+#define CMD_SETFONT2         4294967099UL //Address 0xFFFFFF3B
+#define CMD_SETMATRIX        4294967082UL //Address 0xFFFFFF2A
+#define CMD_SETROTATE        4294967094UL //Address 0xFFFFFF36
 #define CMD_SETSCRATCH       4294967100UL
-#define CMD_SKETCH           4294967088UL
-#define CMD_SLIDER           4294967056UL
+#define CMD_SKETCH           4294967088UL //Address 0xFFFFFF30
+#define CMD_SLIDER           4294967056UL //Address 0xFFFFFF10
 #define CMD_SNAPSHOT         4294967071UL
 #define CMD_SNAPSHOT2        4294967095UL
-#define CMD_SPINNER          4294967062UL
-#define CMD_STOP             4294967063UL
+#define CMD_SPINNER          4294967062UL //Address 0xFFFFFF16
+#define CMD_STOP             4294967063UL //Address 0xFFFFFF17
 #define CMD_SWAP             4294967041UL
 #define CMD_SYNC             4294967106UL
-#define CMD_TEXT             4294967052UL
-#define CMD_TOGGLE           4294967058UL
+#define CMD_TEXT             4294967052UL //Address 0xFFFFFF0C
+#define CMD_TOGGLE           4294967058UL //Address 0xFFFFFF12
 #define CMD_TOUCH_TRANSFORM  4294967072UL
 #define CMD_TRACK            4294967084UL
-#define CMD_TRANSLATE        4294967079UL
-#define CMD_VIDEOFRAME       4294967105UL
-#define CMD_VIDEOSTART       4294967104UL
+#define CMD_TRANSLATE        4294967079UL //Address 0xFFFFFF27
+#define CMD_VIDEOFRAME       4294967105UL //Address 0xFFFFFF41
+#define CMD_VIDEOSTART       4294967104UL //Address 0xFFFFFF40
 #define DECR                 4UL
 #define DLSWAP_DONE          0UL
 #define DLSWAP_FRAME         2UL
@@ -499,20 +500,18 @@ Revision History:
 #define RAM_REG              3153920UL //Offset 0x00
 #define RAM_ROMSUB           3186688UL
 #define RECTS                9UL
-
 #define ROMFONT_TABLEADDRESS 3145724UL
-
 #define REG_ANALOG           3154284UL  //Address 0x30216C //Offset 0x16C
 #define REG_ANA_COMP         3154308UL
 #define REG_BIST_EN          3154292UL
 #define REG_BUSYBITS         3154152UL
-#define REG_CLOCK            3153928UL
-#define REG_CMDB_SPACE       3155316UL
-#define REG_CMDB_WRITE       3155320UL
-#define REG_CMD_DL           3154176UL
-#define REG_CMD_READ         3154168UL
-#define REG_CMD_WRITE        3154172UL
-#define REG_CPURESET         3153952UL
+#define REG_CLOCK            3153928UL //Offset 0x8
+#define REG_CMDB_SPACE       3155316UL //Offset 0x574
+#define REG_CMDB_WRITE       3155320UL //Offset 0x578
+#define REG_CMD_DL           3154176UL //Offset 0x100
+#define REG_CMD_READ         3154168UL //Offset 0xF8
+#define REG_CMD_WRITE        3154172UL //Offset 0xFC
+#define REG_CPURESET         3153952UL //Offset 0x20
 #define REG_CRC              3154296UL
 #define REG_CSPREAD          3154024UL //Offset 0x68
 #define REG_CTOUCH_EXTENDED  3154184UL //Address 0x302108 //Offset 0x108
@@ -537,25 +536,25 @@ Revision History:
 #define REG_DATESTAMP        3155300UL
 #define REG_DITHER           3154016UL //Offset 0x60
 #define REG_DLSWAP           3154004UL //Offset 0x54
-#define REG_FRAMES           3153924UL
-#define REG_FREQUENCY        3153932UL
-#define REG_GPIO             3154068UL
-#define REG_GPIOX            3154076UL
-#define REG_GPIOX_DIR        3154072UL
-#define REG_GPIO_DIR         3154064UL
+#define REG_FRAMES           3153924UL //Offset 0x4
+#define REG_FREQUENCY        3153932UL //Offset 0xC
+#define REG_GPIO             3154068UL //Offset 0x94
+#define REG_GPIOX            3154076UL //Offset 0x9C
+#define REG_GPIOX_DIR        3154072UL //Offset 0x98
+#define REG_GPIO_DIR         3154064UL //Offset 0x90
 #define REG_HCYCLE           3153964UL //Offset 0x2C
 #define REG_HOFFSET          3153968UL //Offset 0x30
 #define REG_HSIZE            3153972UL //Offset 0x34
 #define REG_HSYNC0           3153976UL //Offset 0x38
 #define REG_HSYNC1           3153980UL //Offset 0x3C
 #define REG_ID               3153920UL //Offset 0x00
-#define REG_INT_EN           3154092UL
-#define REG_INT_FLAGS        3154088UL
-#define REG_INT_MASK         3154096UL
+#define REG_INT_EN           3154092UL //Offset 0xAC
+#define REG_INT_FLAGS        3154088UL //Offset 0xA8
+#define REG_INT_MASK         3154096UL //Offset 0xB0
 #define REG_MACRO_0          3154136UL
 #define REG_MACRO_1          3154140UL
-#define REG_MEDIAFIFO_READ   3182612UL
-#define REG_MEDIAFIFO_WRITE  3182616UL
+#define REG_MEDIAFIFO_READ   3182612UL //Offset 0x7014
+#define REG_MEDIAFIFO_WRITE  3182616UL //Offset 0x7018
 #define REG_OUTBITS          3154012UL //Offset 0x5C
 #define REG_PATCHED_ANALOG   3154288UL
 #define REG_PATCHED_TOUCH_FAULT 3154284UL //Address 0x30216C //Offset 0x16C
@@ -569,8 +568,8 @@ Revision History:
 #define REG_PLAYBACK_PLAY    3154124UL //Offset 0xCC
 #define REG_PLAYBACK_READPTR 3154108UL //Offset 0xBC
 #define REG_PLAYBACK_START   3154100UL //Offset 0xB4
-#define REG_PWM_DUTY         3154132UL
-#define REG_PWM_HZ           3154128UL
+#define REG_PWM_DUTY         3154132UL //Offset 0xD4
+#define REG_PWM_HZ           3154128UL //Offset 0xFA
 #define REG_RENDERMODE       3153936UL
 #define REG_ROMSUB_SEL       3154160UL
 #define REG_ROTATE           3154008UL //Offset 0x58
@@ -579,7 +578,7 @@ Revision History:
 #define REG_SNAPY            3153940UL
 #define REG_SOUND            3154056UL //Offset 0x88
 #define REG_SPI_EARLY_TX     3154300UL
-#define REG_SPI_WIDTH        3154312UL
+#define REG_SPI_WIDTH        3154312UL //Address 0x188  //Offset 0x188 (address from Datasheet, suspect actually offset)
 #define REG_SWIZZLE          3154020UL //Offset 0x64
 #define REG_TAG              3154044UL //Offset 0x7C
 #define REG_TAG_X            3154036UL //Offset 0x74
@@ -615,12 +614,12 @@ Revision History:
 #define REG_TOUCH_TRANSFORM_D 3154268UL //Offset 0x15C
 #define REG_TOUCH_TRANSFORM_E 3154272UL //Offset 0x160
 #define REG_TOUCH_TRANSFORM_F 3154276UL //Offset 0x164
-#define REG_TRACKER          3182592UL
-#define REG_TRACKER_1        3182596UL
-#define REG_TRACKER_2        3182600UL
-#define REG_TRACKER_3        3182604UL
-#define REG_TRACKER_4        3182608UL
-#define REG_TRIM             3154304UL
+#define REG_TRACKER          3182592UL //Offset 0x7000
+#define REG_TRACKER_1        3182596UL //Offset 0x7004
+#define REG_TRACKER_2        3182600UL //Offset 0x7008
+#define REG_TRACKER_3        3182604UL //Offset 0x700C
+#define REG_TRACKER_4        3182608UL //Offset 0x7010
+#define REG_TRIM             3154304UL //Address 0x10256C (address from Datasheet...)
 #define REG_VCYCLE           3153984UL //Offset 0x40
 #define REG_VOFFSET          3153988UL //Offset 0x44
 #define REG_VOL_PB           3154048UL //Offset 0x80
@@ -641,54 +640,55 @@ Revision History:
 #define TOUCHMODE_ONESHOT    1UL
 #define ULAW_SAMPLES         1UL
 #define ZERO                 0UL
-#define VERTEX2F(x,y) ((1UL<<30)|(((x)&32767UL)<<15)|(((y)&32767UL)<<0))
-#define VERTEX2II(x,y,handle,cell) ((2UL<<30)|(((x)&511UL)<<21)|(((y)&511UL)<<12)|(((handle)&31UL)<<7)|(((cell)&127UL)<<0))
-#define BITMAP_SOURCE(addr) ((1UL<<24)|(((addr)&4194303UL)<<0))
-#define CLEAR_COLOR_RGB(red,green,blue) ((2UL<<24)|(((red)&255UL)<<16)|(((green)&255UL)<<8)|(((blue)&255UL)<<0))
-#define TAG(s) ((3UL<<24)|(((s)&255UL)<<0))
-#define COLOR_RGB(red,green,blue) ((4UL<<24)|(((red)&255UL)<<16)|(((green)&255UL)<<8)|(((blue)&255UL)<<0))
-#define BITMAP_HANDLE(handle) ((5UL<<24)|(((handle)&31UL)<<0))
-#define CELL(cell) ((6UL<<24)|(((cell)&127UL)<<0))
-#define BITMAP_LAYOUT(format,linestride,height) ((7UL<<24)|(((format)&31UL)<<19)|(((linestride)&1023UL)<<9)|(((height)&511UL)<<0))
-#define BITMAP_SIZE(filter,wrapx,wrapy,width,height) ((8UL<<24)|(((filter)&1UL)<<20)|(((wrapx)&1UL)<<19)|(((wrapy)&1UL)<<18)|(((width)&511UL)<<9)|(((height)&511UL)<<0))
 #define ALPHA_FUNC(func,ref) ((9UL<<24)|(((func)&7UL)<<8)|(((ref)&255UL)<<0))
-#define STENCIL_FUNC(func,ref,mask) ((10UL<<24)|(((func)&7UL)<<16)|(((ref)&255UL)<<8)|(((mask)&255UL)<<0))
-#define BLEND_FUNC(src,dst) ((11UL<<24)|(((src)&7UL)<<3)|(((dst)&7UL)<<0))
-#define STENCIL_OP(sfail,spass) ((12UL<<24)|(((sfail)&7UL)<<3)|(((spass)&7UL)<<0))
-#define POINT_SIZE(size) ((13UL<<24)|(((size)&8191UL)<<0))
-#define LINE_WIDTH(width) ((14UL<<24)|(((width)&4095UL)<<0))
-#define CLEAR_COLOR_A(alpha) ((15UL<<24)|(((alpha)&255UL)<<0))
-#define COLOR_A(alpha) ((16UL<<24)|(((alpha)&255UL)<<0))
-#define CLEAR_STENCIL(s) ((17UL<<24)|(((s)&255UL)<<0))
-#define CLEAR_TAG(s) ((18UL<<24)|(((s)&255UL)<<0))
-#define STENCIL_MASK(mask) ((19UL<<24)|(((mask)&255UL)<<0))
-#define TAG_MASK(mask) ((20UL<<24)|(((mask)&1UL)<<0))
+#define BEGIN(prim) ((31UL<<24)|(((prim)&15UL)<<0))
+#define BITMAP_HANDLE(handle) ((5UL<<24)|(((handle)&31UL)<<0))
+#define BITMAP_LAYOUT(format,linestride,height) ((7UL<<24)|(((format)&31UL)<<19)|(((linestride)&1023UL)<<9)|(((height)&511UL)<<0))
+#define BITMAP_LAYOUT_H(linestride,height) ((40UL<<24)|(((linestride)&3UL)<<2)|(((height)&3UL)<<0))
+#define BITMAP_SIZE(filter,wrapx,wrapy,width,height) ((8UL<<24)|(((filter)&1UL)<<20)|(((wrapx)&1UL)<<19)|(((wrapy)&1UL)<<18)|(((width)&511UL)<<9)|(((height)&511UL)<<0))
+#define BITMAP_SIZE_H(width,height) ((41UL<<24)|(((width)&3UL)<<2)|(((height)&3UL)<<0))
+#define BITMAP_SOURCE(addr) ((1UL<<24)|(((addr)&4194303UL)<<0))
 #define BITMAP_TRANSFORM_A(a) ((21UL<<24)|(((a)&131071UL)<<0))
 #define BITMAP_TRANSFORM_B(b) ((22UL<<24)|(((b)&131071UL)<<0))
 #define BITMAP_TRANSFORM_C(c) ((23UL<<24)|(((c)&16777215UL)<<0))
 #define BITMAP_TRANSFORM_D(d) ((24UL<<24)|(((d)&131071UL)<<0))
 #define BITMAP_TRANSFORM_E(e) ((25UL<<24)|(((e)&131071UL)<<0))
 #define BITMAP_TRANSFORM_F(f) ((26UL<<24)|(((f)&16777215UL)<<0))
-#define SCISSOR_XY(x,y) ((27UL<<24)|(((x)&2047UL)<<11)|(((y)&2047UL)<<0))
-#define SCISSOR_SIZE(width,height) ((28UL<<24)|(((width)&4095UL)<<12)|(((height)&4095UL)<<0))
+#define BLEND_FUNC(src,dst) ((11UL<<24)|(((src)&7UL)<<3)|(((dst)&7UL)<<0))
 #define CALL(dest) ((29UL<<24)|(((dest)&65535UL)<<0))
-#define JUMP(dest) ((30UL<<24)|(((dest)&65535UL)<<0))
-#define BEGIN(prim) ((31UL<<24)|(((prim)&15UL)<<0))
-#define COLOR_MASK(r,g,b,a) ((32UL<<24)|(((r)&1UL)<<3)|(((g)&1UL)<<2)|(((b)&1UL)<<1)|(((a)&1UL)<<0))
+#define CELL(cell) ((6UL<<24)|(((cell)&127UL)<<0))
 #define CLEAR(c,s,t) ((38UL<<24)|(((c)&1UL)<<2)|(((s)&1UL)<<1)|(((t)&1UL)<<0))
-#define VERTEX_FORMAT(frac) ((39UL<<24)|(((frac)&7UL)<<0))
-#define BITMAP_LAYOUT_H(linestride,height) ((40UL<<24)|(((linestride)&3UL)<<2)|(((height)&3UL)<<0))
-#define BITMAP_SIZE_H(width,height) ((41UL<<24)|(((width)&3UL)<<2)|(((height)&3UL)<<0))
-#define PALETTE_SOURCE(addr) ((42UL<<24)|(((addr)&4194303UL)<<0))
-#define VERTEX_TRANSLATE_X(x) ((43UL<<24)|(((x)&131071UL)<<0))
-#define VERTEX_TRANSLATE_Y(y) ((44UL<<24)|(((y)&131071UL)<<0))
-#define NOP() ((45UL<<24))
+#define CLEAR_COLOR_A(alpha) ((15UL<<24)|(((alpha)&255UL)<<0))
+#define CLEAR_COLOR_RGB(red,green,blue) ((2UL<<24)|(((red)&255UL)<<16)|(((green)&255UL)<<8)|(((blue)&255UL)<<0))
+#define CLEAR_STENCIL(s) ((17UL<<24)|(((s)&255UL)<<0))
+#define CLEAR_TAG(s) ((18UL<<24)|(((s)&255UL)<<0))
+#define COLOR_A(alpha) ((16UL<<24)|(((alpha)&255UL)<<0))
+#define COLOR_MASK(r,g,b,a) ((32UL<<24)|(((r)&1UL)<<3)|(((g)&1UL)<<2)|(((b)&1UL)<<1)|(((a)&1UL)<<0))
+#define COLOR_RGB(red,green,blue) ((4UL<<24)|(((red)&255UL)<<16)|(((green)&255UL)<<8)|(((blue)&255UL)<<0))
+#define DISPLAY() ((0UL<<24))
 #define END() ((33UL<<24))
-#define SAVE_CONTEXT() ((34UL<<24))
+#define JUMP(dest) ((30UL<<24)|(((dest)&65535UL)<<0))
+#define LINE_WIDTH(width) ((14UL<<24)|(((width)&4095UL)<<0))
+#define MACRO(m) ((37UL<<24)|(((m)&1UL)<<0))
+#define NOP() ((45UL<<24))
+#define PALETTE_SOURCE(addr) ((42UL<<24)|(((addr)&4194303UL)<<0))
+#define POINT_SIZE(size) ((13UL<<24)|(((size)&8191UL)<<0))
 #define RESTORE_CONTEXT() ((35UL<<24))
 #define RETURN() ((36UL<<24))
-#define MACRO(m) ((37UL<<24)|(((m)&1UL)<<0))
-#define DISPLAY() ((0UL<<24))
+#define SAVE_CONTEXT() ((34UL<<24))
+#define SCISSOR_SIZE(width,height) ((28UL<<24)|(((width)&4095UL)<<12)|(((height)&4095UL)<<0))
+#define SCISSOR_XY(x,y) ((27UL<<24)|(((x)&2047UL)<<11)|(((y)&2047UL)<<0))
+#define STENCIL_FUNC(func,ref,mask) ((10UL<<24)|(((func)&7UL)<<16)|(((ref)&255UL)<<8)|(((mask)&255UL)<<0))
+#define STENCIL_MASK(mask) ((19UL<<24)|(((mask)&255UL)<<0))
+#define STENCIL_OP(sfail,spass) ((12UL<<24)|(((sfail)&7UL)<<3)|(((spass)&7UL)<<0))
+#define TAG(s) ((3UL<<24)|(((s)&255UL)<<0))
+#define TAG_MASK(mask) ((20UL<<24)|(((mask)&1UL)<<0))
+#define VERTEX_FORMAT(frac) ((39UL<<24)|(((frac)&7UL)<<0))
+#define VERTEX_TRANSLATE_X(x) ((43UL<<24)|(((x)&131071UL)<<0))
+#define VERTEX_TRANSLATE_Y(y) ((44UL<<24)|(((y)&131071UL)<<0))
+#define VERTEX2F(x,y) ((1UL<<30)|(((x)&32767UL)<<15)|(((y)&32767UL)<<0))
+#define VERTEX2II(x,y,handle,cell) ((2UL<<30)|(((x)&511UL)<<21)|(((y)&511UL)<<12)|(((handle)&31UL)<<7)|(((cell)&127UL)<<0))
+
 #endif
 
 #define GPU_NUMCHAR_PERFONT (128)
